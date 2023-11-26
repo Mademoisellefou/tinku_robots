@@ -4,32 +4,77 @@
   <%- include('../partials/head'); %>
 </head>
 <body class="container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-    <div class="container px-5">
-        <a class="navbar-brand" href="index.html"><span class="fw-bolder text-primary">Distorted Reality</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand ml-3" href="/">Cuida el Agua App</a>
     </div>
 </nav>
- <!-- Header-->
- <header class="py-5">
+<!-- ENDNAVBAR -->
+<div class="container mt-3">
   <div class="container px-5 pb-5">
-      <div class="row gx-5 align-items-center">
-          <div class="col-xxl-5">
-              <!-- Header text content-->
-              <div class="text-center text-xxl-start">
-                  <div class="badge bg-gradient-primary-to-secondary text-white mb-4"><div class="text-uppercase">Design &middot; Development &middot; Marketing</div></div>
-                  <div class="fs-3 fw-light text-muted">I can help your business to</div>
-                  <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Get online and grow fast</span></h1>
-                  <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
-                      <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="resume.html">Medidor de fuente</a>
-                      <a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="projects.html">Calculadora de costo</a>
-                  </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h1 style="color: rgb(43, 39, 17);">Almacenamiento</h1>
+        <div class="card p-2 mb-5">
+            <div id='myDiv'></div>
+        </div>
+    </div>
+      <div class="col-md-5">
+          <!-- CARD -->
+          <div class="card">
+              <div class="card-body">
+                <h1 style="color: rgb(43, 39, 17);">Calculadora de Consumo</h1>
+                <form action="/add_bookmark" method="POST">
+                      <div class="input-group mb-3">
+                          <input type="text" class="form-control" name="link" placeholder="Link">
+                      </div>
+                      <div class="input-group mb-3">
+                          <input type="text" class="form-control" name="name" placeholder="Name">
+                      </div>
+                      <div class="input-group mb-3">
+                          <button type="submit" class="btn btn-outline-secondary">
+                              Save
+                          </button>
+                      </div>
+                  </form>
               </div>
           </div>
       </div>
+    </div>
   </div>
-</header>
+</div>
 
+<script src='https://cdn.plot.ly/plotly-2.27.0.min.js'></script>
+<script>
+  const dataFinal = fetch('js/test.json')
+    .then((response) => console.log(response)) 
+  var data = [
+	{
+	  type: "indicator",
+	  mode: "gauge+number+delta",
+	  value: 420,
+	  title: { text: "Almacenamiento", font: { size: 24 } ,margin: 2 },
+	  delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+	  gauge: {
+		axis: { range: [null, 500], tickwidth: 1, tickcolor: "darkblue" },
+		bar: { color: "cyan" },
+		bgcolor: "white",
+		borderwidth: 2,
+		bordercolor: "white",
+	  }
+	}
+  ];
+  
+  var layout = {
+	width: 300,
+	height: 200,
+	margin: { t: 25, r: 25, l: 25, b: 25 },
+	paper_bgcolor: "lavender",
+	font: { color: "darkblue", family: "Arial" }
+  };
+  
+  Plotly.newPlot('myDiv', data, layout);
+</script>
 <footer>
   <%- include('../partials/footer'); %>
 </footer>
