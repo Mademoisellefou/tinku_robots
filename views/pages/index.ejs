@@ -24,26 +24,33 @@
           <div class="card">
               <div class="card-body">
                 <h3 style="color: rgb(43, 39, 17);">Calculadora de Consumo de Agua en Lavadoras</h3>
-                <form action="/add_bookmark" method="POST">
                       <div class="input-group mb-3">
-                          <input type="number" class="form-control" name="Cargas por semana" placeholder="Cantidad de lavados por semana">
+                          <input type="number" id="cantidad_agua" class="form-control" name="Cargas por semana" placeholder="Cantidad de lavados por semana">
                       </div>
                       <div class="input-group mb-3">
                           <p>Establecido con Ahorro de agua</p>
                       </div>
+                      <div id="message"></div>
                       <div class="input-group mb-3">
-                          <button type="submit" class="btn btn-outline-secondary">
+                          <button id="myButton" class="btn btn-outline-secondary">
                               Calcular
                           </button>
                       </div>
-                  </form>
               </div>
           </div>
       </div>
     </div>
   </div>
 </div>
-
+<script>
+   document.getElementById("myButton").addEventListener("click", function() {
+    var myVariable =  document.getElementById("cantidad_agua").value; 
+    console.log(myVariable);
+    var messageDiv = document.getElementById("message");
+    messageDiv.style.display = "block";
+    messageDiv.textContent = 'EL pago del agua es ...'+ (parseInt(myVariable)*2).toString()+ ' bs';
+    }); 
+</script>
 <script src='https://cdn.plot.ly/plotly-2.27.0.min.js'></script>
 <script>
   let dataObject;
@@ -55,6 +62,7 @@
     dataObject1 = Math.floor((Math.random() * (max - min + 1)) + min);
     console.log(dataObject1);
   }
+  
   setInterval(random(200,220), 10000);
   var data = [
 	{
