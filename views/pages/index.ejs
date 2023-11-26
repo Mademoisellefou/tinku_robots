@@ -14,26 +14,26 @@
   <div class="container px-5 pb-5">
     <div class="row">
       <div class="col-md-4">
-        <h1 style="color: rgb(43, 39, 17);">Almacenamiento</h1>
+        <h3 style="color: rgb(43, 39, 17);">Almacenamiento</h3>
         <div class="card p-2 mb-5">
             <div id='myDiv'></div>
         </div>
     </div>
-      <div class="col-md-5">
+      <div class="col-md-7">
           <!-- CARD -->
           <div class="card">
               <div class="card-body">
-                <h1 style="color: rgb(43, 39, 17);">Calculadora de Consumo</h1>
+                <h3 style="color: rgb(43, 39, 17);">Calculadora de Consumo de Agua en Lavadoras</h3>
                 <form action="/add_bookmark" method="POST">
                       <div class="input-group mb-3">
-                          <input type="text" class="form-control" name="link" placeholder="Link">
+                          <input type="number" class="form-control" name="Cargas por semana" placeholder="Cantidad de lavados por semana">
                       </div>
                       <div class="input-group mb-3">
-                          <input type="text" class="form-control" name="name" placeholder="Name">
+                          <p>Establecido con Ahorro de agua</p>
                       </div>
                       <div class="input-group mb-3">
                           <button type="submit" class="btn btn-outline-secondary">
-                              Save
+                              Calcular
                           </button>
                       </div>
                   </form>
@@ -46,15 +46,23 @@
 
 <script src='https://cdn.plot.ly/plotly-2.27.0.min.js'></script>
 <script>
-  const dataFinal = fetch('js/test.json')
-    .then((response) => console.log(response)) 
+  let dataObject;
+  const almacenamiento =  fetch('http://localhost:8000/data').then((response) => response.json())
+    .then((json) => {console.log(json); dataObject = json; return json});
+  const nivel = almacenamiento['data']
+  let dataObject1 = 0
+  function random(min, max) {
+    dataObject1 = Math.floor((Math.random() * (max - min + 1)) + min);
+    console.log(dataObject1);
+  }
+  setInterval(random(200,220), 10000);
   var data = [
 	{
 	  type: "indicator",
 	  mode: "gauge+number+delta",
-	  value: 420,
-	  title: { text: "Almacenamiento", font: { size: 24 } ,margin: 2 },
-	  delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+	  value: dataObject1,
+	  title: { text: "", font: { size: 24 }},
+	  delta: { reference: 220, increasing: { color: "RebeccaPurple" } },
 	  gauge: {
 		axis: { range: [null, 500], tickwidth: 1, tickcolor: "darkblue" },
 		bar: { color: "cyan" },
@@ -74,6 +82,9 @@
   };
   
   Plotly.newPlot('myDiv', data, layout);
+</script>
+<script>
+  setInterval(console.log('HI'), 5000);
 </script>
 <footer>
   <%- include('../partials/footer'); %>
