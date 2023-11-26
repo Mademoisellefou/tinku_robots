@@ -14,6 +14,7 @@ app.get('/upload', function(req, res) {
   res.render('pages/index');
 });
 app.post('/upload', function(req, res) {
+  console.log(req.body);
   res.json({ data: req.body })
 });
 app.get('/data', function(req, res) {
