@@ -8,8 +8,7 @@ app.get('/upload', function(req, res) {
   res.render('pages/index');
 });
 app.post('/upload', function(req, res) {
-  console.log(res);
-  res.redirect('/upload')
+  res.json({ data: req.body })
 });
 app.listen(8000);
 console.log('Server is listening on port 8080');
